@@ -83,7 +83,7 @@ def setMachineReadableSize(size, unit):
     elif unit == "TiB":
         size = int(size) * 1024 * 1024 * 1024 * 1024
     else:
-        flash("cannot get filesystem size chosen, please retry", "danger")
+        return None
     return size
 
 
@@ -104,10 +104,6 @@ def valueInMB(
         return sizeInMB * (1024 * 1024 * 1024)
     else:  # value is in byte
         return sizeInMB / (1024 * 1024)
-
-
-
-
 
 def checkHostPing(ip):
     import platform
@@ -178,7 +174,6 @@ def dbg(obj, private="public"):
         if private == "private" or not ((m[0][0:2] == "__") and (m[0][-2:-1] == "_")):
             print(m)
 
-
 def abort_if_video_id_doesnt_exist(video_id):
     video_ids=db.Query.all().pluck(id)
     if video_id not in video_ids:
@@ -187,8 +182,6 @@ def abort_if_video_id_doesnt_exist(video_id):
 def abort_if_video_exists(video_id):
     if video_id in Video.query.all().pluck(id):
         abort(409, message=f"Video id {video_id} already exists")
-
-
 
 #
 # APP CONFIG INITIALIZATION
@@ -205,9 +198,8 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 from models.video import Video, VideoSchema
 from video.views import video
+import views
 app.register_blueprint(video, url_prefix="/video/")
-
-
 
 # init db
 @app.before_first_request
@@ -218,5 +210,5 @@ def create_tables():
 # start application
 if __name__ == "__main__":
     db.init_app(app)
-    app.run(port=5000, debug=True)
+    app.run()
 
