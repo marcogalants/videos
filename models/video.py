@@ -1,4 +1,4 @@
-from video import db, ma
+from videos import db, ma
 from sqlalchemy import Column, Integer, String
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
 
