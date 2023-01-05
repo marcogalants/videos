@@ -197,11 +197,11 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 from models.video import Video, VideoSchema
-from videos.views import videos
+from video.views import video
 import views
 
 # Blueprint Setup
-app.register_blueprint(videos, url_prefix="/videos/")
+app.register_blueprint(video, url_prefix="/videos/")
 
 # init db
 @app.before_first_request
