@@ -21,6 +21,12 @@ docs/_build/
 .vscode
 __pycache__/
 
+# Certificates and Keys
+*.crt
+*.pem
+*.key
+*.csr
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
