@@ -1,8 +1,6 @@
 from videos import db, ma
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import DeclarativeMeta
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
-import json
 
 class Video(db.Model):
     __tablename__ = "video"

@@ -6,7 +6,7 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from os import environ,path
 import re, datetime
 
-appname="apione"
+appname="videos"
 appversion="0.9a"
 appauthor="Marco Galanti"
 appdescription="This app use RestAPI for performing different functions for testing and demo purpose"
@@ -210,5 +210,9 @@ def create_tables():
 # start application
 if __name__ == "__main__":
     db.init_app(app)
-    app.run()
-
+    port = environ['FLASK_PORT']
+    debug = environ['FLASK_DEBUG']
+    if ('CERTFILE' in list(environ.keys())) and ('CERTKEY' in list(environ.keys())):
+        app.run(port=port, debug=debug, ssl_context=(environ['CERTFILE'],environ['CERTKEY']))
+    else:
+        app.run(port=port, debug=debug)
