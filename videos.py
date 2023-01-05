@@ -197,15 +197,16 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 from models.video import Video, VideoSchema
-from video.views import video
+from videos.views import videos
 import views
-app.register_blueprint(video, url_prefix="/video/")
+
+# Blueprint Setup
+app.register_blueprint(videos, url_prefix="/videos/")
 
 # init db
 @app.before_first_request
 def create_tables():
     db.create_all()
-
 
 # start application
 if __name__ == "__main__":
