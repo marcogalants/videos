@@ -21,7 +21,7 @@ docs/_build/
 .vscode
 __pycache__/
 
-# Database
+# Sqlite Database 
 database.db
 
 # Certificates and Keys
