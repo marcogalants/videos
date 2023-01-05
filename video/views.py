@@ -3,16 +3,16 @@ from videos import db, printlog, getHumanReadableSize, setMachineReadableSize
 import json
 from models.video import Video, VideoSchema
 
-video = Blueprint("video", __name__, template_folder="templates", static_folder="static")
+videos = Blueprint("videos", __name__, template_folder="templates", static_folder="static")
 
-@video.route("/",methods=['GET'])
+@videos.route("/",methods=['GET'])
 def getAllVideos():
     videos=Video.query.all()
     video_schema = VideoSchema(many=True)
     output = video_schema.dump(videos)
     return jsonify({'video': output}), 200
 
-@video.route("/<int:video_id>",methods=['GET'])
+@videos.route("/<int:video_id>",methods=['GET'])
 def getVideo(video_id):
     if video_id:
         video = Video.query.filter_by(id=video_id).first()
@@ -25,7 +25,7 @@ def getVideo(video_id):
     else:
         return jsonify(message="video id not specified"), 404
         
-@video.route("/",methods=['POST'])
+@videos.route("/",methods=['POST'])
 def createVideo():
     # get input body (data) and create a new video record in the DB returning http status 201 in case of success
     data=json.loads(request.data)
@@ -37,7 +37,7 @@ def createVideo():
     except Exception as e:
         return "could not complete new video creation: " + e, 500
 
-@video.route("/<int:video_id>", methods=['PATCH'])
+@videos.route("/<int:video_id>", methods=['PATCH'])
 def modifyVideo(video_id):
     if video_id:
         video = Video.query.filter_by(id=video_id).first()
@@ -61,7 +61,7 @@ def modifyVideo(video_id):
         else:
             return jsonify(message="video id not specified"), 404
 
-@video.route("/<int:video_id>", methods=['DELETE'])
+@videos.route("/<int:video_id>", methods=['DELETE'])
 def deleteVideo(video_id):
     if video_id:
         video = Video.query.filter_by(id=video_id).first()
