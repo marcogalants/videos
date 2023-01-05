@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from video import app
+from videos import app
 
 @app.route("/", methods=["GET"])
 def root():
